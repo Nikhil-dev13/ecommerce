@@ -28,7 +28,7 @@ const Hero = () => {
           <h1 className="text-3xl font-bold text-center">Our Products</h1>
           <div className="flex flex-wrap">
             {new Array(5).fill(0).map((item, index) => (
-              <Card />
+              <Card key={index} />
             ))}
           </div>
         </section>
