@@ -1,20 +1,19 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-import { useRouter } from "next/router";
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import { useRouter } from 'next/router';
 
 const LoginComponent = () => {
-
   const router = useRouter();
 
   useEffect(() => {
-    if (localStorage.getItem("token")) {
-      router.push("/private");
+    if (localStorage.getItem('token')) {
+      router.push('/private');
     }
   }, []);
 
   const [formData, setFormData] = useState({
-    email: "",
-    password: "",
+    email: '',
+    password: '',
   });
 
   const [errors, setErrors] = useState(false);
@@ -28,19 +27,19 @@ const LoginComponent = () => {
 
       const config = {
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
       };
 
       const res = await axios.post(
-        "https://e-commerce.urownsite.xyz/users/login",
+        'https://e-commerce.urownsite.xyz/users/login',
         body,
         config
       );
 
-      localStorage.setItem("token", res.data.authorization);
+      localStorage.setItem('token', res.data.authorization);
 
-      router.push("/private");
+      router.push('/private');
     } catch (error) {
       console.log(error.response.data.error);
       setErrors(error.response.data.error);
@@ -51,8 +50,6 @@ const LoginComponent = () => {
     e.preventDefault();
     login();
   };
-
-
 
   return (
     <div className="min-h-full flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
