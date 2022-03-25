@@ -1,7 +1,24 @@
-import React from 'react';
-import Card from './Card';
+import axios from "axios";
+import React, { useState, useEffect } from "react";
+import Card from "./Card";
 
 const Hero = () => {
+  const [products, setProducts] = useState([]);
+
+  const getAllProducts = async () => {
+    try {
+      const response = await axios("https://e-commerce.urownsite.xyz/products");
+      console.log(response.data.data);
+      setProducts(response.data.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getAllProducts();
+  }, []);
+
   return (
     <div>
       <div className="max-w-6xl mx-auto">
@@ -27,8 +44,8 @@ const Hero = () => {
         <section className="space-y-5">
           <h1 className="text-3xl font-bold text-center">Our Products</h1>
           <div className="flex flex-wrap">
-            {new Array(5).fill(0).map((item, index) => (
-              <Card key={index} />
+            {products.map((product, index) => (
+              <Card key={index} product={product} />
             ))}
           </div>
         </section>
